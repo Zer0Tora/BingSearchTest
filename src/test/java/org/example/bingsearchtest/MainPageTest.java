@@ -34,12 +34,13 @@ public class MainPageTest {
 
     @Test
     public void search() {
+        String input = "pancake";
         WebElement searchField = driver.findElement(By.cssSelector("#sb_form_q"));
-        searchField.sendKeys("pancake");
+        searchField.sendKeys(input);
         searchField.submit();
 
         WebElement searchPageField = driver.findElement(By.cssSelector("#sb_form_q"));
-        assertEquals("pancake", searchPageField.getAttribute("value"));
+        assertEquals(input, searchPageField.getAttribute("value"));
     }
 
 }
