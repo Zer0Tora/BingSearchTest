@@ -1,9 +1,8 @@
 package org.example.bingsearchtest;
 
-import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPageTest {
     private WebDriver driver;
@@ -37,24 +38,32 @@ public class MainPageTest {
     }
 
     @Test
-    public void searchTest() {
+    public void bingSearchTest() {
         String input = "selenium";
         WebElement searchField = driver.findElement(By.cssSelector("#sb_form_q"));
         searchField.sendKeys(input);
         searchField.submit();
 
+        clickToElement("selenium.dev", 0);
+
+        goToNewPage();
+
+        assertEquals("https://www.selenium.dev/", driver.getCurrentUrl(), "Не совпадает URL");
+    }
+
+    public void clickToElement(String waitFor, int numResult) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
         wait.until(ExpectedConditions.and(
-                ExpectedConditions.attributeContains(By.cssSelector("h2 > a[href]"), "href", "selenium.dev"),
+                ExpectedConditions.attributeContains(By.cssSelector("h2 > a[href]"), "href", waitFor),
                 ExpectedConditions.elementToBeClickable(By.cssSelector("h2 > a[href]"))
         ));
         List<WebElement> results = driver.findElements(By.cssSelector("h2 > a[href]"));
 
-        results.get(0).click();
+        results.get(numResult).click();
+    }
 
+    public void goToNewPage() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-
-        assertEquals("https://www.selenium.dev/", driver.getCurrentUrl(), "Не совпадает URL");
+        if (tabs.size() > 1) driver.switchTo().window(tabs.get(1));
     }
 }
