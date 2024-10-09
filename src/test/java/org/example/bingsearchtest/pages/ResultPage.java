@@ -31,7 +31,7 @@ public class ResultPage {
     }
 
     public void waitForElement(String waitFor, int seconds){
-        System.out.println("Ожидаем элемент " + waitFor + " " + seconds + " секунд");
+        System.out.println("Ожидаем элемент '" + waitFor + "' " + seconds + " секунд");
         wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
         wait.until(ExpectedConditions.and(
                 ExpectedConditions.attributeContains(resultsLocator, "href", waitFor),
@@ -47,6 +47,7 @@ public class ResultPage {
     }
 
     public String checkSearchFieldText(){
+        System.out.println("Получение значения текста в поле поиска");
         return searchField.getAttribute("value");
     }
 

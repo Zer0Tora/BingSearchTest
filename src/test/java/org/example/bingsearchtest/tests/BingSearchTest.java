@@ -30,7 +30,7 @@ public class BingSearchTest {
     }
 
     @Test
-    @DisplayName("www.selenium.dev/ открывается первой ссылкой при поиске через bing.com")
+    @DisplayName("www.selenium.dev открывается первой ссылкой при поиске через bing.com")
     public void searchResultTest() {
         String input = "selenium";
         MainPage mp = new MainPage(driver);
@@ -48,7 +48,7 @@ public class BingSearchTest {
     }
 
     @Test
-    @DisplayName("В строке ввода отображается ")
+    @DisplayName("Введённое значение отображается после поиска")
     public void searchFieldTest() {
         String input = "selenium";
         MainPage mp = new MainPage(driver);
@@ -58,6 +58,6 @@ public class BingSearchTest {
 
         rp.waitForElement("selenium", 6);
 
-        assertEquals(input, rp.checkSearchFieldText());
+        assertEquals(input, rp.checkSearchFieldText(), "Текст в поле не равен: " + input);
     }
 }
