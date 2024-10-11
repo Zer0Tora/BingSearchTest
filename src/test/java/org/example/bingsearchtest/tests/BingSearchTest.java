@@ -1,12 +1,12 @@
 package org.example.bingsearchtest.tests;
 
-import org.example.bingsearchtest.pages.MainPage;
-import org.example.bingsearchtest.pages.ResultPage;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.example.bingsearchtest.pages.MainPage;
+import org.example.bingsearchtest.pages.ResultPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,12 +16,11 @@ public class BingSearchTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        // Fix the issue https://github.com/SeleniumHQ/selenium/issues/11750
         options.addArguments("--remote-allow-origins=*");
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.get("https://www.bing.com/");
+        driver.get("http://www.bing.com/");
     }
 
     @AfterEach
@@ -55,8 +54,6 @@ public class BingSearchTest {
         ResultPage rp = new ResultPage(driver);
 
         mp.sendText(input);
-
-        rp.waitForElement("selenium", 6);
 
         assertEquals(input, rp.checkSearchFieldText(), "Текст в поле не равен: " + input);
     }
