@@ -24,7 +24,6 @@ public class ResultPage {
     public void clickElement(int numResult) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(6));
         results = wait.until(ExpectedConditions.visibilityOfAllElements(results));
-        wait.until(ExpectedConditions.elementToBeClickable(results.get(numResult)));
         results.get(numResult).click();
         System.out.println("Выполнен клик на " + numResult + " элемент");
     }
