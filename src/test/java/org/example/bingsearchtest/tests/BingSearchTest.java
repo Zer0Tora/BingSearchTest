@@ -2,10 +2,7 @@ package org.example.bingsearchtest.tests;
 
 import org.example.bingsearchtest.pages.MainPage;
 import org.example.bingsearchtest.pages.ResultPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -40,9 +37,8 @@ public class BingSearchTest {
     @DisplayName("www.selenium.dev открывается первой ссылкой при поиске через bing.com")
     public void searchResultTest() {
         mp.sendText(input);
-        rp.waitForElement("selenium.dev", 6);
         rp.clickElement(0);
-        rp.goToNewPage();
+        rp.goToNewPageIfExist();
         assertEquals("https://www.selenium.dev/", driver.getCurrentUrl(), "Не совпадает URL");
     }
 
